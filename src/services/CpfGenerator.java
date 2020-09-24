@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import entities.Informations;
+
 public class CpfGenerator {
 	private static CpfGenerator uniqueInstance;
 	static List<Integer> a = new ArrayList<Integer>();
@@ -17,28 +19,29 @@ public class CpfGenerator {
 		return uniqueInstance;
 	}
 	
-	private static int generateRandomNum() {
+	private static int generateRandomNum(int MaxNumber) {
 		Random randomNum = new Random();
-		return randomNum.nextInt(10);
+		return randomNum.nextInt(MaxNumber);
 	}
 	
-	private static void firstDigit(){
-		int result = 0;
-		for(int i = 10, aux = 0;i >= 2;i--, aux++) {
-			a.add(generateRandomNum());
-			result += a.get(aux)/i;
-		}
-		a.add(verifyDigit(result));
-	}
+
 	private static int verifyDigit(int digit) {
-		System.out.println("Digito antes: " + digit);
 		if(digit < 2) {
 			digit = 0;
 		}else {
 			digit = 11 - digit;
 		}
-		System.out.println("Digito depois: " + digit);
 		return digit;
+	}
+	
+	private static void firstDigit(){
+		a.clear();
+		int result = 0;
+		for(int i = 10, aux = 0;i >= 2;i--, aux++) {
+			a.add(generateRandomNum(10));
+			result += a.get(aux)/i;
+		}
+		a.add(verifyDigit(result));
 	}
 	
 	private static void secondDigit() {
@@ -56,11 +59,61 @@ public class CpfGenerator {
 		}
 	}
 	
+	private static String randomState(String stateName) {
+		String[] stateNames = stateName.split(",");
+		stateName = stateNames[generateRandomNum(stateNames.length)];
+		return stateName;
+	}
+	
+	private static void verifyState(int state) {
+		String stateName = "justToFixBugs";
+		
+		switch(state) {
+			case 0:
+				stateName = "Rio Grande do Sul";
+				break;
+			case 1:
+				stateName = "Distrito Federal,Goiás,Mato Grosso,Mato Grosso do Sul,Tocantins";
+				break;
+			case 2:
+				stateName = "Amazonas,Pará,Roraima,Amapá,Acre,Rondônia";
+				break;
+			case 3:
+				stateName = "Ceará,Maranhão,Piauí";
+				break;
+			case '4':
+				stateName = "Paraíba,Pernambuco,Alagoas,Rio Grande do Norte" ;
+				break;
+			case '5':
+				stateName ="Bahia,Sergipe" ;
+				break;
+			case '6':
+				stateName ="Minas Gerais" ;
+				break;
+			case '7':
+				stateName ="Rio de Janeiro,Espírito Santo" ;
+				break;
+			case '8':
+				stateName ="São Paulo" ;
+				break;
+			case '9':
+				stateName ="Paraná,Santa Catarina";
+				break;
+			default: System.out.println("error");
+				break;
+			}
+		
+			if(stateName.indexOf(",") == -1) {
+				stateName = randomState(stateName);
+			}
+			Informations.
+	}
+	
 	public static synchronized String generateCPF() {
 		firstDigit();
 		secondDigit();
-		printCpf();
-		
+		int state = a.get(8);
+		verifyState(state);
 		return null;
 	}
 }
