@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import entities.Citys;
 import entities.Informations;
 
 public class CpfGenerator {
@@ -75,9 +76,11 @@ public class CpfGenerator {
 	private static void verifyState(int state) {
 		String stateName = "justToFixBugs";
 		System.out.println("State: " + state);
+		String sigla;
 		switch(state) {
 			case 0:
 				stateName = "Rio Grande do Sul";
+				sigla = "RS";
 				break;
 			case 1:
 				stateName = "Distrito Federal,Goiás,Mato Grosso,Mato Grosso do Sul,Tocantins";
@@ -116,8 +119,8 @@ public class CpfGenerator {
 				stateName = randomState(stateName);
 			}
 
-			System.out.println("State name: " + stateName);
-			generateRandomCity(stateName);
+			System.out.println("State name AQUI O: " + stateName);
+			Citys.generateCity("GO");
 	}
 	
 	public static synchronized String generateCPF() {
