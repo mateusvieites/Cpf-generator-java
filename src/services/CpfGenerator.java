@@ -24,13 +24,19 @@ public class CpfGenerator {
 		return randomNum.nextInt(MaxNumber);
 	}
 	
+	private static void generateRandomCity(String state) {
+		
+	}
+	
 
 	private static int verifyDigit(int digit) {
+		System.out.println("DIgito antes: " + digit);
 		if(digit < 2) {
 			digit = 0;
 		}else {
 			digit = 11 - digit;
 		}
+		System.out.println("Digito depois" + digit);
 		return digit;
 	}
 	
@@ -54,6 +60,7 @@ public class CpfGenerator {
 	}
 	
 	private static void printCpf() {
+		System.out.println("Prints:");
 		for(int i = 0; i < 11;i++) {
 			System.out.print(a.get(i));
 		}
@@ -67,7 +74,7 @@ public class CpfGenerator {
 	
 	private static void verifyState(int state) {
 		String stateName = "justToFixBugs";
-		
+		System.out.println("State: " + state);
 		switch(state) {
 			case 0:
 				stateName = "Rio Grande do Sul";
@@ -81,39 +88,43 @@ public class CpfGenerator {
 			case 3:
 				stateName = "Ceará,Maranhão,Piauí";
 				break;
-			case '4':
+			case 4:
 				stateName = "Paraíba,Pernambuco,Alagoas,Rio Grande do Norte" ;
 				break;
-			case '5':
+			case 5:
 				stateName ="Bahia,Sergipe" ;
 				break;
-			case '6':
+			case 6:
 				stateName ="Minas Gerais" ;
 				break;
-			case '7':
+			case 7:
 				stateName ="Rio de Janeiro,Espírito Santo" ;
 				break;
-			case '8':
+			case 8:
 				stateName ="São Paulo" ;
 				break;
-			case '9':
+			case 9:
 				stateName ="Paraná,Santa Catarina";
 				break;
 			default: System.out.println("error");
 				break;
 			}
-		
-			if(stateName.indexOf(",") == -1) {
+
+		System.out.println("State name: " + stateName);
+			if(!(stateName.indexOf(",") == -1)) {
+				System.out.println("Entrou");
 				stateName = randomState(stateName);
 			}
-			Informations.
+
+			System.out.println("State name: " + stateName);
+			generateRandomCity(stateName);
 	}
 	
 	public static synchronized String generateCPF() {
 		firstDigit();
 		secondDigit();
-		int state = a.get(8);
-		verifyState(state);
+		printCpf();
+		verifyState(a.get(8));
 		return null;
 	}
 }
